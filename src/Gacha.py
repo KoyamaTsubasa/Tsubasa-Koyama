@@ -1,7 +1,7 @@
 import numpy as np
 import scipy as sp
 import Gacha as G
-
+import pdb
 
 
 
@@ -26,4 +26,4 @@ def myPull(select,myPs):
 def UpdateRecord(currentRecord, myPs, select):
     val = myPull(select, myPs)
     currentRecord[select]+=val
-    return currentRecord 
+    return currentRecord

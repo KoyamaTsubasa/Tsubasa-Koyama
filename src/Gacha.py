@@ -31,7 +31,7 @@ def UpdateRecord(currentRecord, myPs, select):
 
 
 def KoyamaMachine():
-    pass
+    return 0
 
 
 def EpsilonGreedyMachine(currentRecord, myPs, epsilon = 0.2):
@@ -66,7 +66,9 @@ def run_experiment(gachaPs,numExps,myEpsilon, mode = 'EG'):
     for j in range(numExps):
         # Machine chooses the lever to pull
         if mode == 'EG':
-            machineSelect = G.EpsilonGreedyMachine(currentRecord, myPs, epsilon = myEpsilon)
+            machineSelect = EpsilonGreedyMachine(currentRecord, myPs, epsilon = myEpsilon)
+        elif mode =='Tsubasa':
+            machineSelect =  KoyamaMachine
         else:
             raise NotImplementedError
 

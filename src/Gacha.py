@@ -3,6 +3,14 @@ import scipy as sp
 import Gacha as G
 import pdb
 import random
+import copy
+
+'''
+numLeverPulled is not used in Epsilon Greedy!!!
+
+RecordHistory  is not used in Epsilon Greedy!!
+
+'''
 
 
 
@@ -30,7 +38,7 @@ def UpdateRecord(currentRecord, myPs, select):
     return currentRecord
 
 
-def KoyamaMachine():
+def TsubasaMachine():
     return 0
 
 
@@ -61,20 +69,36 @@ def run_experiment(gachaPs,numExps,myEpsilon, mode = 'EG'):
     #pdb.set_trace()
 
     currentRecord = np.zeros(numGacha)
+    RecordHistoryList = []
     numLeverPulled = np.zeros(numGacha)
+
+
 
     for j in range(numExps):
         # Machine chooses the lever to pull
         if mode == 'EG':
             machineSelect = EpsilonGreedyMachine(currentRecord, myPs, epsilon = myEpsilon)
         elif mode =='Tsubasa':
-            machineSelect =  KoyamaMachine
+            machineSelect =  TsubasaMachine()
         else:
             raise NotImplementedError
 
+        oldRecord = copy.copy(currentRecord)
         #Update the record according to the decision
         currentRecord = G.UpdateRecord(currentRecord, myPs, machineSelect)
+
+        #History of outcomes Up to now
+        #outcomeThisRound = currentRecord - oldRecord
+        #RecordHistoryList = RecordHistoryList + [outcomeThisRound]
+        #RecordHistory = np.array(RecordHistoryList)
+
+
+        #if j > 100:
+        #    pdb.set_trace()
+
         numLeverPulled[machineSelect]+=1
+
+
 
         if np.mod(j, 100) ==0 :
         #Report!

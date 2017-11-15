@@ -21,3 +21,9 @@ def gachaRepeat(numPull, myP):
 def myPull(select,myPs):
     myval = G.mygacha(myPs[select])
     return myval
+
+
+def UpdateRecord(currentRecord, myPs, select):
+    val = myPull(select, myPs)
+    currentRecord[select]+=val
+    return currentRecord 
